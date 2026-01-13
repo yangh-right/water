@@ -1,0 +1,56 @@
+<!--
+ * @Description: 
+ * @version: 
+ * @Author: fengtaotao
+ * @Date: 2023-03-08 17:06:43
+ * @LastEditors: Do not edit
+ * @LastEditTime: 2023-08-23 14:04:18
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function getUrlParams(url) {
+        // 通过 ? 分割获取后面的参数字符串
+        console.log(url.split("?"));
+        let urlStr = url.split("?")[1];
+        // 创建空对象存储参数
+        let obj = {};
+        // 再通过 & 将每一个参数单独分割出来
+        let paramsArr = urlStr.split("&");
+        for (let i = 0, len = paramsArr.length; i < len; i++) {
+          // 再通过 = 将每一个参数分割为 key:value 的形式
+          let arr = paramsArr[i].split("=");
+          obj[arr[0]] = arr[1];
+        }
+        return obj;
+      }
+      // let params = getUrlParams(window.location.href);
+      let user = {
+        username: "admin",
+        password: "123456",
+      };
+      //let token = params.token;
+      let myHeaders = new Headers();
+      let origin = window.location.origin;
+      myHeaders.append("Content-type", "application/json");
+      fetch(`${origin}/main/purificationApi/auth/login`, {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: myHeaders,
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          localStorage.setItem("userInfo", JSON.stringify(res.resultData)); //转换成json字符串序列
+          let url = `${origin}/purificationBigPage/html/#/mainPage`;
+          window.location.replace(url);
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,159 @@
+<template>
+  <w-modal
+    :destroyOnClose="true"
+    :title="runTimeObj ? '编辑' : '新增'"
+    :visible="visible"
+    height="80vh"
+    width="650px"
+    centered
+    :maskClosable="false"
+    @cancel="cancel"
+    @ok="handlerFrom"
+  >
+    <w-row class="config-wrap">
+      <w-form-model
+        ref="form"
+        :model="form"
+        :rules="rules"
+        :labelCol="{ span: 10 }"
+        :wrapperCol="{ span: 14 }"
+      >
+        <w-col span="24">
+          <w-form-model-item label="监测量名称" prop="pointName">
+            <w-input v-model="form.indicator" :disabled="true"></w-input>
+          </w-form-model-item>
+        </w-col>
+        <w-col span="24">
+          <w-form-model-item label="输入范围" prop="internalReflux">
+            <RangeForm
+              :form="form"
+              ref="range1Form"
+              :fieldNameList="fieldNameListC"
+              :operatorList="operatorList"
+            ></RangeForm>
+          </w-form-model-item>
+        </w-col>
+      </w-form-model>
+    </w-row>
+  </w-modal>
+</template>
+
+<script>
+import { cloneDeep } from 'lodash-es';
+import FactorySelect from '@/components/factory-select/index.vue';
+import RangeForm from './configModel.vue';
+import { addOrUpdateSludgeHealth } from '@/api/pointStandard';
+const paramsData = {
+  indicator: undefined,
+  indicatorOpt: undefined,
+  indicatorMin: undefined,
+  indicatorMax: undefined
+};
+const LOAD_NUM = 100;
+export default {
+  name: 'addOrUpdataEvaluation',
+  components: {
+    FactorySelect,
+    RangeForm
+  },
+  props: {
+    runTimeObj: {
+      type: Number,
+      default: 0
+    },
+    rowData: {
+      type: Object,
+      default: () => {}
+    },
+    operatorList: {
+      type: Array,
+      default: () => {}
+    }
+  },
+  data() {
+    return {
+      form: cloneDeep(paramsData),
+      visible: false,
+      rules: {
+        indicator: [{ required: true, message: '请选择/输入监测量名称' }]
+      },
+      fieldNameListC: ['indicatorOpt', 'warningValue', 'indicatorMin', 'indicatorMax']
+    };
+  },
+  watch: {
+    visible(val) {
+      if (val) {
+        this.initData();
+      }
+    },
+    runTimeObj(val) {
+      if (!val) {
+        this.form = cloneDeep(paramsData);
+      }
+    }
+  },
+  created() {},
+  methods: {
+    initData() {
+      if (!(this.rowData === null) && this.runTimeObj) {
+        this.form = {
+          ...this.rowData
+        };
+      }
+    },
+    cancel() {
+      this.visible = false;
+      this.$emit('cancel');
+    },
+    handlerFrom() {
+      this.$refs.form.validate(async valid => {
+        if (valid) {
+          let params = {
+            ...this.form
+          };
+          let { status } = await addOrUpdateSludgeHealth(params);
+          if (status === 'complete') {
+            let message = this.runTimeObj ? '编辑成功' : '新增成功';
+            this.$message.success(message);
+            this.visible = false;
+            this.form = cloneDeep(paramsData);
+            this.$emit('cancel', true);
+          } else {
+            return false;
+          }
+        } else {
+          return false;
+        }
+      });
+    }
+  }
+};
+</script>
+
+<style lang="less" scoped>
+.config-wrap {
+  max-height: 70vh;
+  overflow: auto;
+}
+/deep/.wpg-form-item-label {
+  width: 150px;
+}
+.form-footer {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+.af-time {
+  position: relative;
+
+  &::after {
+    content: '年';
+    font-weight: 500;
+    font-size: 14px;
+    color: var(--supply-color-third);
+    position: absolute;
+    right: -20px;
+    top: 7px;
+  }
+}
+</style>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="16px" viewBox="0 0 19 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_arrows</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="总览_深最终版本" transform="translate(-1102.000000, -435.000000)">
+            <g id="编组-63" transform="translate(1094.000000, 98.000000)">
+                <g id="编组-62" transform="translate(4.000000, 6.000000)">
+                    <g id="编组-41" transform="translate(4.000000, 331.000000)">
+                        <g id="ic_arrows" transform="translate(0.000000, 2.000000)">
+                            <polyline id="路径" stroke="#1BE9F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(11.505391, 6.000000) rotate(-315.000000) translate(-11.505391, -6.000000) " points="7.2627507 1.75735931 15.7442198 1.7611716 15.7480321 10.2426407"></polyline>
+                            <ellipse id="椭圆形" fill="#1BE9F8" cx="9.08320372" cy="6" rx="1.81664074" ry="1.81827458"></ellipse>
+                            <ellipse id="椭圆形" fill="#1BE9F8" opacity="0.400000006" cx="1.81664074" cy="6" rx="1.81664074" ry="1.81827458"></ellipse>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

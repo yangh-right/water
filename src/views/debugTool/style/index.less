@@ -1,0 +1,201 @@
+.page {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  /deep/ .wpg-form {
+    .wpg-form-item-label > label {
+    }
+  }
+  /deep/.form-header {
+    height: 61px !important;
+  }
+  /deep/.wpg-form-header {
+    background: transparent;
+    padding: 13px 16px 9px !important;
+  }
+  &__center {
+    height: 100%;
+    width: calc(53% - 24px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .center__top {
+      height: calc(66.66% - 6px);
+      background-color: var(--supply-color-bg-card-component);
+    }
+    .page-item {
+      height: calc(33.33% - 6px);
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .btn-item {
+      border: 1px solid var(--supply-color-primary-DEFAULT);
+      border-radius: 4px 0 0 4px;
+      color: var(--supply-color-primary-DEFAULT);
+      &:hover {
+        border: 1px solid var(--supply-color-primary-hover);
+        color: var(--supply-color-primary-hover);
+      }
+    }
+  }
+  &__right {
+    width: calc((100% - 53%) / 2);
+    height: 100%;
+  }
+  &__left {
+    width: calc((100% - 53%) / 2);
+    height: 100%;
+  }
+}
+.iframe-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100% - 61px);
+  background: transparent;
+  position: relative;
+
+  .map-top-right {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 1000;
+    width: 36px;
+    height: 36px;
+
+    .map-right-control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border-radius: 4px;
+    }
+  }
+}
+
+.form-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-right: 20px;
+
+  .form-label {
+    height: 20px;
+    font-family: PingFangSC-Regular, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--supply-color-secondary);
+    letter-spacing: 0;
+    margin-right: 12px;
+  }
+  .select-item {
+    margin-right: 8px;
+    color: #a0a0a0;
+  }
+  .ico-change {
+    width: 36px;
+    height: 36px;
+    background-color: var(--supply-color-primary-DEFAULT);
+    border-color: var(--supply-color-primary-DEFAULT);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    &:hover {
+      background-color: var(--supply-color-primary-hover);
+      border-color: var(--supply-color-primary-hover);
+    }
+  }
+}
+.methods-box {
+  .title {
+    font-family: PingFangSC-Regular, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--supply-color-main);
+  }
+  .methods-list {
+    max-height: 290px;
+    overflow: auto;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    .filed {
+      width: calc(25% - 8px);
+      height: 90px;
+      margin-right: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #f7f8fa;
+      border: 1px solid #ebedf0;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-bottom: 8px;
+    }
+    .active {
+      background: #4285f414;
+      border: 1px solid #4285f4;
+    }
+    .ico-method {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 8px;
+    }
+    .method-title {
+      width: 100%;
+      padding: 0 4px;
+      font-family: PingFangSC-Regular, sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      text-align: center;
+      color: var(--supply-color-secondary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .filed:nth-child(4n + 1) .ico-method {
+      background: url('~@/assets/images/default/ico-leaf.png') no-repeat;
+      background-size: 100% 100%;
+    }
+    .filed:nth-child(4n + 2) .ico-method {
+      background: url('~@/assets/images/default/ico-sun.png') no-repeat;
+      background-size: 100% 100%;
+    }
+    .filed:nth-child(4n + 3) .ico-method {
+      background: url('~@/assets/images/default/ico-maple.png') no-repeat;
+      background-size: 100% 100%;
+    }
+    .filed:nth-child(4n) .ico-method {
+      background: url('~@/assets/images/default/ico-snow.png') no-repeat;
+      background-size: 100% 100%;
+    }
+    .filed1.active .ico-method {
+      background: url('~@/assets/images/default/ico-leaf1.png') no-repeat;
+      background-size: 100% 100%;
+    }
+    .filed2.active .ico-method {
+      background: url('~@/assets/images/default/ico-sun1.png') no-repeat;
+      background-size: 100% 100%;
+    }
+    .filed3.active .ico-method {
+      background: url('~@/assets/images/default/ico-maple1.png') no-repeat;
+      background-size: 100% 100%;
+    }
+    .filed4.active .ico-method {
+      background: url('~@/assets/images/default/ico-snow1.png') no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+}

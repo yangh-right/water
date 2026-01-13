@@ -1,0 +1,38 @@
+/deep/ .circle-radio {
+  margin-left: 12px;
+  .wpg-radio-wrapper {
+  }
+  .wpg-radio-button-wrapper:not(:first-child)::before {
+    display: none;
+  }
+  .wpg-radio-button-wrapper:last-child {
+    margin-right: 0;
+  }
+  .wpg-radio-button-wrapper {
+    margin-right: 8px;
+    border-radius: 13px;
+    color: var(--supply-color-secondary);
+    padding: 5px 15px !important;
+    height: 26px;
+    position: relative;
+    font-size: 12px;
+    line-height: 16px;
+    background: var(--supply-color-bg-card-dark);
+    border: 1px solid #d9d9d9 !important;
+    transition: all 0.2s ease;
+
+    &.wpg-radio-button-wrapper-checked {
+      color: var(--supply-color-online);
+      box-shadow: none !important;
+      outline: none !important;
+      /* 新增：亮眼背景渐变 + 细边框强化 */
+      background: linear-gradient(120deg, rgba(22, 119, 255, 0.1), rgba(22, 119, 255, 0.05));
+      border: 1px solid var(--supply-color-online) !important;
+      /* 新增：放大文字/加粗，进一步突出 */
+      font-weight: 600;
+      transform: scale(1.05); /* 轻微放大，增强感知 */
+    }
+  }
+  .wpg-radio-inner {
+  }
+}

@@ -1,0 +1,22 @@
+@import './setting.less';
+
+// 亮色主题差异样式
+:not([data-wpg-theme='dark']) {
+  .wbgc-card {
+    background-color: #fff;
+    border-radius: 4px;
+  }
+
+  .wbgc-shallow {
+    background-color: rgba(256, 256, 256, 0.3);
+  }
+
+  .wbgc-tree {
+    background-color: var(--mbg-7-cls);
+  }
+
+  .wpg-bs {
+    border: 0.7px solid #f1f6fd;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.04);
+  }
+}

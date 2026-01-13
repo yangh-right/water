@@ -1,0 +1,65 @@
+export default {
+  workspace: {
+    type: '类型',
+    date: '日期',
+    stratTime: '开始时间',
+    endTime: '结束时间',
+    vagueQuery: '模糊查询',
+    query: '查询',
+    reset: '重置',
+    create: '创建',
+    aleadySelect: '已选择',
+    item: '项',
+    batchDelete: '批量删除',
+    aleadyRead: '已 读',
+    noRead: '未 读',
+    check: '查看',
+    draw: '撤回',
+    edit: '编辑',
+    delete: '删除',
+    tabs: ['我的通知', '我的发布', '草稿箱'],
+    tips: '提示',
+    sureDelete: '确定要删除吗？',
+    deleteSuccess: '删除成功！',
+    selectdeleteItem: '请选择您要删除的通知',
+    drawSuccess: '撤回成功！',
+
+    addNotive: '新增通告',
+    cancel: '取消',
+    staging: '暂存',
+    release: '发布',
+    title: '标题',
+    noticeRange: '通知范围',
+    createBy: '创建人',
+    createTime: '创建日期',
+    textContent: '文本内容',
+    uploadFile: '上传附件',
+    createRules: {
+      title: '请输入标题',
+      createTime: '请输入创建时间',
+      createBy: '请输入创建人',
+      rangeIds: '请选择通知范围',
+      noticeType: '请选择类型'
+    },
+    sureStaging: '确定要暂存吗？',
+    sureRelease: '确定要发布吗？',
+    manageColumns: {
+      num: '序号',
+      title: '标题',
+      noticeType: '类型',
+      createBy: '创建人',
+      createTime: '创建时间',
+      publishTime: '发布时间',
+      action: '操作'
+    },
+
+    checkContent: '查看内容',
+    goBack: '返回',
+    titleName: '标题名称',
+    file: '附件',
+    publishTime: '发布时间',
+
+    pleaseEnter: '请输入',
+    pleaseChoose: '请选择'
+  }
+};

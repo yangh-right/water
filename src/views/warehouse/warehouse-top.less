@@ -1,0 +1,76 @@
+.warehouse-common {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  // padding: 12px;
+  &-top {
+    margin-bottom: 12px;
+    padding: 8px 8px;
+    border-radius: 4px;
+    background-color: var(--supply-color-bg-card-component);
+
+    .wpg-form-item {
+      display: flex;
+      margin-bottom: 0;
+    }
+
+    /deep/.wpg-row-flex {
+      margin: 0 !important;
+    }
+
+    /deep/.wpg-form-item-label {
+      width: auto;
+      min-width: 60px;
+    }
+
+    /deep/.wpg-form-item-control-wrapper {
+      flex: 1;
+      // width: auto;
+    }
+
+    .fl {
+      padding: 10px 12px !important;
+      /deep/ .wpg-form-item-children {
+        display: flex;
+      }
+    }
+    .f-right {
+      height: 40px;
+      line-height: 40px;
+      display: flex;
+      justify-content: flex-end;
+
+      a {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  /deep/.wpg-btn {
+    // height: 32px;
+  }
+
+  /deep/&-con {
+    flex: 1;
+    overflow: hidden;
+    // height: calc(100% - 62px);
+    background-color: var(--supply-color-bg-card-component);
+    border-radius: 4px;
+
+    .wpg-table-content {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+    }
+
+    &-btn {
+      padding: 6px 20px;
+      text-align: right;
+    }
+  }
+  .mr_12 {
+    margin-right: 12px;
+  }
+  .mb_20 {
+    margin-bottom: 20px;
+  }
+}

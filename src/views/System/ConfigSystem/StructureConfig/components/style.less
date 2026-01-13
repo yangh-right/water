@@ -1,0 +1,70 @@
+.position {
+  display: flex;
+  flex-wrap: wrap;
+  width: 101%;
+  margin-top: 10px;
+  line-height: 28px;
+  justify-content: space-between;
+
+  &-title {
+    padding-right: 16px;
+    height: 28px;
+  }
+
+  &-content {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 44px);
+  }
+
+  &-item {
+    width: 48%;
+    display: flex;
+    margin-right: 16px;
+    margin-bottom: 16px;
+
+    &:nth-of-type(2n) {
+      margin-right: 0;
+    }
+
+    /deep/ .wpg-btn {
+      margin: auto 0;
+    }
+
+    /deep/ .wpg-input {
+      line-height: 28px;
+      height: 28px;
+      width: 100%;
+    }
+  }
+}
+
+.name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  margin-top: 3px;
+
+  /deep/.wpg-input {
+    width: 50%;
+  }
+}
+
+.warn {
+  font-family: PingFangSC-Regular, sans-serif;
+  font-weight: 200;
+  letter-spacing: 0;
+  display: flex;
+  line-height: 25px;
+  margin-bottom: 0;
+
+  .wpgicon {
+    line-height: 25px;
+    margin-right: 5px;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}

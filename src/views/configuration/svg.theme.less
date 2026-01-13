@@ -1,0 +1,189 @@
+// 组态工艺页面内部主题样式切换
+@ftc: #ADB5BD;
+@ftc2: #fff;
+@ftc3: #666;
+@bdc: #495057;
+
+.black {
+    .configuration-popover {
+        color: @ftc;
+        background-color: rgba(18, 22, 29, 0.6);
+        box-shadow: 0 1px 5px 0 rgba(206, 206, 206, 0.2);
+    }
+    /deep/.ant-dropdown-link+div {
+        .ant-dropdown-menu {
+            background: #262A37 !important;
+            .ant-dropdown-menu-item {
+                color: @ftc !important;
+                &.current,
+                &:hover {
+                    background-color: #313646 !important;
+                    color: @ftc2 !important;
+                }
+            }
+
+        }
+    }
+    /deep/ .supply-bg-bg-card-DEFAULT {
+        background: #262A37 !important;
+        color: @ftc !important;
+    }
+
+    .site-select {
+        border-color: @bdc;
+        &-title {
+            color: @ftc;
+        }
+    }
+    .site-select-popup {
+        background: #262A37 !important;
+        &::-webkit-scrollbar,
+        &::-webkit-scrollbar-corner {
+            background-color: #282e34;
+        }
+        &::-webkit-scrollbar-thumb {
+            background: @bdc;
+            border-color: #282e34;
+        }
+    }
+    /* 树部分颜色重置 */
+    /deep/ .el-tree-node.is-leaf.is-current .el-tree-node__content {
+      border-color: transparent;
+    }
+
+    /deep/ .el-tree-node__level2 .el-tree-node__content .el-tree-node__label {
+      color: @ftc;
+    }
+    /deep/.el-tree-node__content:hover, 
+    /deep/ .el-tree-node.is-current > .el-tree-node__content {
+      background-color: #313646 !important;
+      color: @ftc2;
+      .el-tree-node__label {
+        color: @ftc2;
+      }
+    }
+    /deep/.svgs-select {
+        .svg-wrapper {
+            button {
+                color: @ftc;
+                border-color: @bdc;
+                &.check,
+                &:focus,&:hover {
+                    color: var(--fc-main);
+                    border-color: var(--fc-main);
+                }
+            }
+        }
+        .svg-prev, .svg-next {
+            border-color: @bdc;
+        }
+    }
+    .configuration-zoomer {
+        div:last-child {
+            border-top: 1px solid @bdc;
+        }
+    }
+    .configuration-figure {
+        background: url("../../assets/images/default/profile/pic_depth_text.png") center center no-repeat;
+        background-size: 100% 100%;
+        &.simple-figure {
+            border: 2px solid rgba(76,84,113,1);
+        }
+    }
+    .phl-icon {
+        background: #69f3ff;
+    }
+    .phl-lable {
+        color: @ftc2;
+    }
+    .phr-icon-stop {
+        background: #4E556B;
+    }
+    /deep/.profile-date {
+        input {
+            color: #868e96 !important;
+            border: 1px solid @bdc !important;
+            &:hover {
+                color: #868e96 !important;
+                border: 1px solid @bdc !important;
+            }
+        }
+        i {
+            color: #868e96 !important;
+        }
+    }
+    .profile-head-right i {
+        color: @ftc2;
+    }
+    .ant-dropdown-link {
+        color: @ftc;
+    }
+}
+.light {
+    .configuration-popover {
+        color: @ftc3;
+        background: rgba(255,255,255,0.90);
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.10);
+    }
+    .site-select {
+        border-color: #D6D6D6;
+        &-title {
+            color: @ftc3;
+            i {
+                color: #999;
+            }
+        }
+    }
+     /deep/.ant-dropdown-link+div {
+        .ant-dropdown-menu-item.current {
+            background-color: #f1f6fd !important;
+            color: #333 !important;
+        }
+    }
+    /deep/ .el-tree-node.is-current > .el-tree-node__content {
+      .el-tree-node__label {
+        color: var(--fc-main);
+      }
+    }
+    /deep/.svgs-select {
+        .svg-wrapper {
+            button {
+                color: @ftc3;
+                border-color: #D6D6D6;
+                &.check,
+                &:focus,&:hover {
+                    color: var(--fc-main);
+                    border-color: var(--fc-main);
+                }
+            }
+        }
+        .svg-prev, .svg-next {
+            border-color: #D6D6D6;
+        }
+    }
+    .configuration-zoomer {
+        div:last-child {
+            border-top: 1px solid  #D6D6D6;
+        }
+    }
+    .configuration-figure {
+        border-radius: 4px;
+        background: rgba(255,255,255,0.90);
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.10);
+    }
+    .phl-icon {
+        background: #A2B0C6;
+    }
+    .phr-icon-stop {
+        background: #D7DBDD;
+    }
+    .phl-lable {
+        color: #333;
+    }
+    .profile-head-right i {
+        color: #A2B0C6;
+    }
+    .ant-dropdown-link {
+        color: @ftc3;
+    }
+}

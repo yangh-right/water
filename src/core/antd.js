@@ -1,0 +1,108 @@
+import Vue from 'vue';
+import {
+  ConfigProvider,
+  Layout,
+  Input,
+  InputNumber,
+  AutoComplete,
+  Button,
+  Switch,
+  Radio,
+  Checkbox,
+  Select,
+  Cascader,
+  Card,
+  Form,
+  FormModel,
+  Row,
+  Col,
+  Collapse,
+  Modal,
+  Table,
+  Tabs,
+  Icon,
+  Badge,
+  Popover,
+  Pagination,
+  Dropdown,
+  List,
+  Avatar,
+  Breadcrumb,
+  Rate,
+  Steps,
+  Spin,
+  Slider,
+  Menu,
+  Drawer,
+  Tooltip,
+  Alert,
+  Tag,
+  Divider,
+  DatePicker,
+  TimePicker,
+  Upload,
+  Progress,
+  Skeleton,
+  Popconfirm,
+  PageHeader,
+  Result,
+  Statistic,
+  Descriptions,
+  Tree,
+  TreeSelect,
+  Carousel,
+  Timeline
+} from 'ant-design-vue';
+
+Vue.use(ConfigProvider);
+Vue.use(Layout);
+Vue.use(Input);
+Vue.use(InputNumber);
+Vue.use(AutoComplete);
+Vue.use(Button);
+Vue.use(Switch);
+Vue.use(Radio);
+Vue.use(Checkbox);
+Vue.use(Select);
+Vue.use(Cascader);
+Vue.use(Card);
+Vue.use(Form);
+Vue.use(FormModel);
+Vue.use(Row);
+Vue.use(Col);
+Vue.use(Collapse);
+Vue.use(Modal);
+Vue.use(Table);
+Vue.use(Tabs);
+Vue.use(Icon);
+Vue.use(Badge);
+Vue.use(Popover);
+Vue.use(Pagination);
+Vue.use(Dropdown);
+Vue.use(List);
+Vue.use(Avatar);
+Vue.use(Breadcrumb);
+Vue.use(Rate);
+Vue.use(Steps);
+Vue.use(Slider);
+Vue.use(Spin);
+Vue.use(Menu);
+Vue.use(Drawer);
+Vue.use(Tooltip);
+Vue.use(Alert);
+Vue.use(Tag);
+Vue.use(Divider);
+Vue.use(DatePicker);
+Vue.use(TimePicker);
+Vue.use(Upload);
+Vue.use(Progress);
+Vue.use(Skeleton);
+Vue.use(Popconfirm);
+Vue.use(PageHeader);
+Vue.use(Result);
+Vue.use(Statistic);
+Vue.use(Descriptions);
+Vue.use(Tree);
+Vue.use(TreeSelect);
+Vue.use(Carousel);
+Vue.use(Timeline);

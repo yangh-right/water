@@ -1,0 +1,333 @@
+#secondary_water_supply {
+  .collapse {
+    &-enter-active,
+    &-leave-active {
+      transition: max-height 0.2s;
+    }
+    &-enter,
+    &-leave-to {
+      max-height: 0;
+    }
+  }
+  .wpg-table-hide-scrollbar {
+    scrollbar-color: unset !important;
+  }
+  .wpg-table-fixed-header .wpg-table-scroll .wpg-table-header {
+    margin-bottom: -10px !important;
+  }
+  .wpg-table-placeholder {
+    padding: 10px 16px !important;
+  }
+  iframe {
+    border: none !important;
+  }
+  // 设置背景样式
+  .wf-login {
+    .wf-login-brand {
+      display: none;
+    }
+    .wf-login-sys-slogan {
+      display: none;
+    }
+    .wf-login-bg {
+      height: 100%;
+      background-size: cover !important;
+    }
+    .wf-login-sys {
+      display: none;
+    }
+    .wf-login-footer {
+      height: 32px;
+      background: white;
+      margin: 0 auto;
+      width: 320px;
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      justify-content: center;
+      box-shadow: 0 8px 24px 0 rgba(4, 22, 47, 0.12);
+    }
+  }
+  // 设置导航栏菜单样式
+  .wf-app-layout-header {
+    height: 70px;
+  }
+  .wf-app-layout-header-main {
+    height: 64px;
+  }
+  .wf-app-quick-select {
+    height: 70px;
+    .wpgicon {
+      font-size: 20px;
+    }
+    //  margin-top: 30px;
+  }
+  .wf-weather-wrap {
+    display: none !important;
+  }
+}
+ul {
+  list-style: none;
+}
+
+.map-bg {
+  .leaflet-tile-pane .leaflet-tile-container {
+    filter: grayscale(57%) hue-rotate(146deg) saturate(0.7) opacity(0.8);
+  }
+}
+.secondary-modal {
+  .wpg-modal-header {
+    border-radius: 4px 4px 0 0;
+    background-color: var(--supply-color-bg-card-dark);
+    padding: 12px 4px;
+    &::after {
+      display: none;
+    }
+  }
+  .wpg-table-hide-scrollbar {
+    scrollbar-color: unset !important;
+  }
+  .wpg-table-fixed-header .wpg-table-scroll .wpg-table-header {
+    margin-bottom: -10px !important;
+  }
+}
+#secondary_water_supply {
+  td,
+  td img {
+    vertical-align: middle;
+  }
+}
+.wf-app-layout-sider::before {
+  width: 190px !important;
+}
+.supply-ml-auto {
+  margin-left: auto !important;
+}
+.supply-mr-4 {
+  margin-right: 1rem !important;
+}
+.supply-py-2 {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+.outwork {
+  &-titlebar {
+    height: 56px;
+    padding: 10px 30px 10px 25px;
+    line-height: 36px;
+    border-radius: 4px;
+
+    &-name {
+      &::before {
+        display: inline-block;
+        width: 5px;
+        height: 14px;
+        margin-right: 10px;
+        vertical-align: -1px;
+        background: #87ce40;
+        content: '';
+      }
+    }
+
+    &-btn {
+      float: right;
+      margin-left: 20px;
+      // padding-right: 0;
+      // padding-left: 0;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &-range-calendar {
+    .wpg-calendar-picker-input.wpg-input {
+      line-height: 1;
+    }
+  }
+}
+
+/** 状态色 **/
+@theme: #4285f4; /* 主题色 */
+@alarm: #f64357; /* 告警色 */
+@error: #f59f00; /* 异常色 */
+@success: #0acc9d; /* 安全色 */
+
+#secondary_water_supply .wf-app-layout-content {
+  padding: 0 12px 12px;
+
+  > section,
+  > div {
+    height: 100%;
+    &.scroll {
+      overflow: hidden scroll;
+    }
+  }
+}
+
+#secondary_water_supply .wf-app-layout-header-logo-default {
+  background-image: none;
+  width: 0;
+  margin-right: 0;
+}
+
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.full-view {
+  height: 100%;
+}
+
+.table-wrapper {
+  margin-top: 10px;
+  .info-table-view {
+    height: 100%;
+  }
+}
+
+.full-table-wrap {
+  height: 100%;
+  .info-table-view {
+    height: 100%;
+  }
+}
+
+.row-col {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  & > label {
+    flex: 0 0 100px;
+    padding-right: 10px;
+  }
+  & > div {
+    flex: 1;
+  }
+  .em {
+    flex: 0 0 100px;
+    border-left: solid 4px #4285f4;
+    padding-left: 4px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+  }
+}
+body {
+  margin: 0 !important;
+}
+
+.em-head-wrap {
+  padding: 15px 15px;
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.em-title {
+  font-family: PingFangSC-Regular, sans-serif;
+  font-size: 16px;
+  color: #6281a3;
+  letter-spacing: 0;
+  border-left: solid 5px #87ce40;
+  line-height: 20px;
+  padding-left: 8px;
+}
+
+.danger {
+  color: #f64357 !important;
+}
+.require {
+  display: inline-block;
+  margin-right: 4px;
+  color: #f64357;
+}
+
+.wfc-theme {
+  // 主题文字色
+  color: @theme !important;
+}
+.wfc-success {
+  /* 安全文字色*/
+  color: @success !important;
+}
+
+.wfc-error {
+  /* 异常文字色*/
+  color: @error !important;
+}
+
+.wfc-alarm {
+  /* 告警文字色*/
+  color: @alarm !important;
+}
+.wpointer {
+  cursor: pointer;
+}
+.form-header {
+  min-height: 50px;
+  border-radius: 4px;
+}
+
+// 元素置灰且不可点击时的样式
+.disabled-preview {
+  color: #ccc;
+  &:hover {
+    cursor: not-allowed;
+    color: #ccc;
+  }
+}
+
+// 表单设计器样式
+html[data-wpg-theme='dark'] {
+  .schema-generator-container {
+    background: #12161d;
+  }
+  .components-body {
+    background: #181c24 !important;
+  }
+  .collapse-header,
+  .wpg-collapse-arrow,
+  .vc-input-number--prefix,
+  .vc-input-prefix {
+    color: #fff !important;
+  }
+  .active-form-item {
+    background-color: #495057 !important;
+  }
+  .drawing-item {
+    border: none !important;
+  }
+  .drawing-editbar-active {
+    background-color: #0e1116 !important;
+  }
+  .drawing-item:hover {
+    background-color: #282e34 !important;
+  }
+  .collapseGroupWrap_header {
+    background-color: #1b2027 !important;
+  }
+}
+
+// 阴影式卡片
+.shadow-card {
+  box-shadow: 0 1px 6px -1px rgba(4, 12, 25, 0.08);
+}
+html:not([data-wpg-theme='dark']) {
+  .shadow-card {
+    border: 1px solid #edf1f7;
+  }
+}
+html[data-wpg-theme='dark'] {
+  .shadow-card {
+    background-color: #222837;
+  }
+}
+
+.margin-left-12 {
+  margin-left: 12px;
+}

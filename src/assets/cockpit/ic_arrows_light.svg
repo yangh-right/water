@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="19px" height="16px" viewBox="0 0 19 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ic_jt</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_jt" transform="translate(0.000000, 2.000000)">
+            <polyline id="路径" stroke="#39A9FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(11.505391, 6.000000) rotate(-315.000000) translate(-11.505391, -6.000000) " points="7.2627507 1.75735931 15.7442198 1.7611716 15.7480321 10.2426407"></polyline>
+            <ellipse id="椭圆形" fill="#39A9FF" cx="9.08320372" cy="6" rx="1.81664074" ry="1.81827458"></ellipse>
+            <ellipse id="椭圆形" fill="#39A9FF" opacity="0.400000006" cx="1.81664074" cy="6" rx="1.81664074" ry="1.81827458"></ellipse>
+        </g>
+    </g>
+</svg>

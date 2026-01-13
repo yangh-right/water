@@ -1,0 +1,435 @@
+<template>
+  <div class="search-box">
+    <table-search>
+      <w-row slot="form">
+        <w-form-model
+          ref="formSearch"
+          layout="inline"
+          :model="formSearch"
+          :labelCol="{ span: 6 }"
+          :wrapperCol="{ span: 18 }"
+          class="supply-clear-both"
+        >
+          <w-col :span="3">
+            <w-form-model-item label="" prop="timeType">
+              <w-radio-group
+                class="supply-whitespace-nowrap"
+                v-model="timeType"
+                button-style="solid"
+              >
+                <template v-for="type in typeList">
+                  <w-radio-button :key="type.value" :value="type.value">
+                    {{ type.label }}
+                  </w-radio-button>
+                </template>
+              </w-radio-group>
+            </w-form-model-item>
+          </w-col>
+          <w-col :span="5">
+            <w-form-model-item name="waterPlantId" label="选择污水厂">
+              <FactorySelect v-model.trim="formSearch.waterPlantId" autoSelect></FactorySelect>
+            </w-form-model-item>
+          </w-col>
+        </w-form-model>
+        <w-col :span="5">
+          <w-form-model-item label="选择日期" prop="date">
+            <w-date-picker
+              v-if="timeType === 'day'"
+              v-model="formSearch.dateTime"
+              :disabled-date="disabledDate"
+              :allowClear="false"
+            />
+            <w-month-picker
+              v-if="timeType === 'month'"
+              v-model="formSearch.dateTime"
+              :disabled-date="disabledDate"
+              :allowClear="false"
+            />
+          </w-form-model-item>
+        </w-col>
+        <w-col class="supply-float-right">
+          <w-form-model-item>
+            <w-button type="primary" class="supply-mr-3" icon="ic_add" @click="handleAdd"
+              >常规填报</w-button
+            >
+            <w-button type="primary" class="supply-mr-3" @click="handleImport"
+              ><w-icon type="ic_publish" />导入</w-button
+            >
+            <w-button type="primary" class="supply-mr-3" @click="handleExport"
+              ><w-icon type="ic_file_download" />导出</w-button
+            >
+            <w-button class="supply-mr-3" icon="ic_autorenew" @click="handleReset">重置</w-button>
+            <w-button type="primary" icon="ic_search" @click="handleSearch">查询</w-button>
+          </w-form-model-item>
+        </w-col>
+      </w-row>
+      <div class="supply-h-full supply-flex supply-flex-col">
+        <div
+          class="assay-set-tap supply-bg-bg-card-DEFAULT supply-flex-none supply-overflow-hidden"
+        >
+          <w-radio-group
+            class="supply-whitespace-nowrap"
+            v-model="formSearch.configCode"
+            @change="changeTab"
+            button-style="solid"
+          >
+            <template v-for="type in manuallyDataList">
+              <w-radio-button :key="type.dictValue" :value="type.dictValue">
+                {{ type.dictName }}
+              </w-radio-button>
+            </template>
+          </w-radio-group>
+        </div>
+        <div
+          id="reportTableCon"
+          ref="reportTableCon"
+          class="report-table-con supply-bg-bg-card-component supply-flex-1 supply-overflow-hidden"
+        >
+          <PaginationTable
+            class="supply-h-full"
+            ref="table"
+            bordered
+            :columns="columns"
+            :pagination="false"
+            rowKey="uid"
+            :loading="loading"
+            :data-source="dataSource"
+            :current.sync="params.page.current"
+            :total.sync="total"
+            :pageSize.sync="params.page.size"
+            @change="onPageChange"
+          >
+            <template slot="action" slot-scope="text, record">
+              <a @click="handleReview(record)">审核</a>
+              <a class="supply-ml-3" @click="handleEdit(record)">修改</a>
+              <a class="supply-ml-3" @click="handleDelete(record)">删除</a>
+            </template>
+          </PaginationTable>
+        </div>
+      </div>
+      <div ref="fileCon" style="display: none">
+        <input
+          id="file"
+          ref="file"
+          type="file"
+          name="fileUpload"
+          style="display: none"
+          accept=".xls,.xlsx,.XLS,.XLSX"
+          @change="handleFile"
+        />
+      </div>
+    </table-search>
+    <AssayModal ref="assayModal" :fields="fields" :visible.sync="visible" />
+  </div>
+</template>
+
+<script>
+import { exportFile } from '@/utils/util';
+import { handleColumns, handleFields } from './models/config';
+import { sysDictListByCode } from '@/api/manage';
+import { getStructureByStationId } from '@/api/optimization';
+import {
+  importAssayReport,
+  exportAssayReport,
+  exportDailyReporTemplatet,
+  getAssayReportList,
+  addAssayReport,
+  deleteAssayReport,
+  batchAddAssayReport
+} from '@/api/report';
+import PaginationTable from '@/components/PaginationTable/index.vue';
+import FactorySelect from '@/components/factory-select/index.vue';
+import AssayModal from './models/assayModal.vue';
+export default {
+  name: 'AssayReport',
+  components: {
+    PaginationTable,
+    FactorySelect,
+    AssayModal
+  },
+  data() {
+    return {
+      formSearch: {
+        waterPlantId: '',
+        placeIdList: [],
+        dateTime: '',
+        configCode: undefined
+      },
+      timeType: 'day',
+      typeList: [
+        { label: '日报', value: 'day' },
+        { label: '月报', value: 'month' }
+      ],
+      placeList: [],
+      dataSource: [],
+      loading: false,
+      params: {
+        page: { current: 1, size: 10 }
+      },
+      total: 0,
+      manuallyDataList: [],
+      manuallyDataName: {},
+      visible: false
+    };
+  },
+  computed: {
+    tabVal() {
+      return this.formSearch.configCode || this.manuallyDataList?.[0]?.dictValue || '';
+    },
+    columns() {
+      return handleColumns(this, this.tabVal);
+    },
+    fields() {
+      return handleFields(this, this.tabVal);
+    }
+  },
+  watch: {
+    'formSearch.waterPlantId': {
+      handler(val) {
+        if (val) {
+          this.getPlaceList(val);
+          this.getList();
+        }
+      },
+      immediate: true
+    }
+  },
+  mounted() {
+    this.sysDictListByCode('manually_data', 'manuallyData');
+  },
+  methods: {
+    async getPlaceList(val) {
+      if (!val) return;
+      this.formSearch.placeIdList = [];
+      let res = await getStructureByStationId(val);
+      let { status, resultData } = res;
+      if (status === 'complete') {
+        this.placeList = resultData.map(item => {
+          return {
+            ...item,
+            value: item.id,
+            key: item.id,
+            title: item.name
+          };
+        });
+      }
+    },
+    async sysDictListByCode(code, data) {
+      const res = await sysDictListByCode(code);
+      this[`${data}List`] = res.resultData;
+      this.formSearch.configCode = res.resultData[0].dictValue;
+      let obj = {};
+      res.resultData.forEach(item => {
+        obj[item.dictValue] = item.dictName;
+      });
+      this[`${data}Name`] = obj;
+    },
+    getList() {
+      this.loading = true;
+      let params = {
+        ...this.formSearch,
+        configCode: this.tabVal,
+        page: this.params.page
+      };
+      getAssayReportList(params).then(res => {
+        this.loading = false;
+        let { status, resultData } = res;
+        if (status === 'complete') {
+          this.dataSource = resultData.records;
+          this.total = resultData.total;
+        }
+      });
+    },
+    onPageChange(page, size) {
+      this.params.page.current = page;
+      this.params.page.size = size;
+      this.getList();
+    },
+    handleSearch() {
+      this.getList();
+    },
+    handleDelete(row) {
+      this.$confirm({
+        title: '确定要删除该项记录吗？',
+        okText: '确定删除',
+        type: 'warning',
+        cancelText: '取消',
+        onCancel: () => {},
+        onOk: () => {
+          deleteAssayReport(row.id).then(res => {
+            if (res.status === 'complete') {
+              this.$message.success('删除成功');
+              this.getList();
+            }
+          });
+        }
+      });
+    },
+    handleReview(row) {
+      this.$confirm({
+        title: '确定要审核该项记录吗？',
+        okText: '确定审核',
+        cancelText: '取消',
+        type: 'warning'
+      }).then(() => {
+        reviewAssayReport(row.id).then(res => {
+          if (res.status === 'complete') {
+            this.$message.success('审核成功');
+            this.getList();
+          }
+        });
+      });
+    },
+    handleEdit(row) {
+      this.$router.push({
+        path: '/assayReport/assaySet/edit',
+        query: { id: row.id }
+      });
+    },
+    handleAdd() {
+      this.$refs.assayModal.show();
+    },
+    handleImport() {
+      this.$refs.file.click();
+    },
+    async handleFile() {
+      let file = this.$refs.file.files[0];
+      let formData = new FormData();
+      formData.append('file', file);
+      let res = await importAssayReport(formData);
+      if (res.size) {
+        this.$message.success('导入失败');
+        exportFile(res, '导入失败信息');
+      } else {
+        this.$message.success('导入成功');
+      }
+      this.getList();
+      document.getElementById('file').value = '';
+    },
+    handleExport() {
+      const vo = this.formSearch;
+      exportAssayReport(vo).then(res => {
+        exportFile(res, '常规填报');
+      });
+    },
+    handleReset() {
+      this.formSearch = {
+        waterPlantId: '',
+        placeIdList: [],
+        rangeTime: []
+      };
+    },
+    changeTab(e) {
+      this.formSearch.configCode = e.target.value;
+      this.getList();
+    },
+    /* 禁选时间 */
+    disabledDate(current) {
+      return current && current > this.$moment().endOf(this.timeType);
+    }
+  }
+};
+</script>
+
+<style lang="less" scoped>
+.search-box {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  /deep/.table-page-search-wrapper {
+    padding: 10px 20px;
+  }
+  /deep/.table-wrapper {
+    margin-top: 0px !important;
+  }
+  .assay-set-tap {
+    height: 50px;
+    border-radius: 4px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    /deep/ .ant-radio-group {
+      display: flex;
+      align-items: center;
+    }
+    /* span {
+      display: inline-block;
+      height: 100%;
+      width: 140px;
+      font-size: 14px;
+      color: #999999;
+      text-align: center;
+      font-weight: 400;
+      line-height: 48px;
+      cursor: pointer;
+      &.active {
+        color: var(--supply-color-primary-DEFAULT);
+        border-bottom: 2px solid var(--supply-color-primary-DEFAULT);
+      }
+    } */
+    .ant-btn {
+      height: 28px;
+      margin-top: 10px;
+      margin-right: 30px;
+    }
+  }
+  .report-table-con {
+    position: relative;
+    padding: 0 12px;
+    min-height: 160px;
+    .spin-wrapper {
+      position: absolute;
+      height: 100%;
+      width: calc(100% - 40px);
+      max-height: 400px;
+      .spin {
+        z-index: 23;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+    .curpor,
+    .desc-box {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /deep/ .ant-table-wrapper {
+      .ant-table-header th {
+        vertical-align: middle;
+        border-bottom: 1px solid #e8e8e8;
+      }
+      .ant-table-body {
+        margin: 0;
+        .ant-table-thead {
+          background: transparent !important;
+        }
+      }
+      .ant-table-tbody {
+        > tr:nth-child(even) {
+          background: transparent;
+        }
+        > tr.ant-table-row:hover,
+        > tr.ant-table-row,
+        > tr.ant-table-row-hover {
+          background: transparent !important;
+          &:hover > td,
+          td {
+            background: transparent !important;
+            border-bottom: 1px solid #d6d6d6;
+          }
+        }
+      }
+    }
+    .pagination {
+      width: 100%;
+      text-align: right;
+      padding: 12px;
+    }
+  }
+}
+</style>

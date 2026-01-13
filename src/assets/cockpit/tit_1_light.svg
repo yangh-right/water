@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="243px" height="20px" viewBox="0 0 243 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>titl_2</title>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#7391FF" offset="0%"></stop>
+            <stop stop-color="#F2F6FC" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="titl_2">
+            <rect id="矩形" stroke="#D6D6D6" fill="#202732" opacity="0.600000024" x="7.5" y="19.5" width="235" height="1"></rect>
+            <rect id="矩形" fill="url(#linearGradient-1)" opacity="0.400000006" x="10" y="0" width="232" height="15"></rect>
+            <g id="ic_arrows" transform="translate(0.000000, 2.000000)">
+                <polyline id="路径" stroke="#39A9FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(11.505391, 6.000000) rotate(-315.000000) translate(-11.505391, -6.000000) " points="7.2627507 1.75735931 15.7442198 1.7611716 15.7480321 10.2426407"></polyline>
+                <ellipse id="椭圆形" fill="#39A9FF" cx="9.08320372" cy="6" rx="1.81664074" ry="1.81827458"></ellipse>
+                <ellipse id="椭圆形" fill="#39A9FF" opacity="0.400000006" cx="1.81664074" cy="6" rx="1.81664074" ry="1.81827458"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>

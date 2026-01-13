@@ -1,0 +1,65 @@
+export default {
+  workspace: {
+    type: 'Type',
+    date: 'date',
+    stratTime: 'Start time',
+    endTime: 'end time',
+    vagueQuery: 'fuzzy query',
+    query: 'Query',
+    reset: 'reset',
+    create: 'Create',
+    aleadySelect: 'Selected',
+    item: 'item',
+    batchDelete: 'Batch delete',
+    aleadyRead: 'already read',
+    noRead: 'Not read',
+    check: 'View',
+    draw: 'Withdraw',
+    edit: 'edit',
+    delete: 'delete',
+    tabs: ['My Notification', 'My Release', 'Draft Box'],
+    tips: 'Tips',
+    sureDelete: 'Are you sure you want to delete? ',
+    deleteSuccess: 'Delete successfully! ',
+    selectdeleteItem: 'Please select the notification you want to delete',
+    drawSuccess: 'Withdraw successfully! ',
+
+    addNotive: 'Add Notification',
+    cancel: 'Cancel',
+    Staging: 'Staging',
+    release: 'Release',
+    title: 'Title',
+    noticeRange: 'Notification range',
+    createBy: 'Creator',
+    createTime: 'Creation Date',
+    textContent: 'text content',
+    uploadFile: 'Upload attachment',
+    createRules: {
+      title: 'Please enter a title',
+      createTime: 'Please enter the creation time',
+      createBy: 'Please enter the creator',
+      rangeIds: 'Please select the notification range',
+      noticeType: 'Please select a type'
+    },
+    sureStaging: 'Are you sure you want to staging? ',
+    sureRelease: 'Are you sure you want to release? ',
+    manageColumns: {
+      num: 'serial number',
+      title: 'Title',
+      noticeType: 'Type',
+      createBy: 'Creator',
+      createTime: 'Creation time',
+      publishTime: 'Publish time',
+      action: 'operation'
+    },
+
+    checkContent: 'View content',
+    goBack: 'return',
+    titleName: 'title name',
+    file: 'attachment',
+    publishTime: 'Publish time',
+
+    pleaseEnter: 'Please enter',
+    pleaseChoose: 'Please select'
+  }
+};

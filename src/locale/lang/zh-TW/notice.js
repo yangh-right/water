@@ -1,0 +1,65 @@
+export default {
+  workspace: {
+    type: '類型',
+    date: '日期',
+    stratTime: '開始時間',
+    endTime: '結束時間',
+    vagueQuery: '模糊查詢',
+    query: '查詢',
+    reset: '重置',
+    create: '創建',
+    aleadySelect: '已選擇',
+    item: '項',
+    batchDelete: '批量刪除',
+    aleadyRead: '已 讀',
+    noRead: '未 讀',
+    check: '查看',
+    draw: '撤回',
+    edit: '編輯',
+    delete: '刪除',
+    tabs: ['我的通知', '我的發布', '草稿箱'],
+    tips: '提示',
+    sureDelete: '確定要刪除嗎？ ',
+    deleteSuccess: '刪除成功！ ',
+    selectdeleteItem: '請選擇您要刪除的通知',
+    drawSuccess: '撤回成功！ ',
+
+    addNotive: '新增通告',
+    cancel: '取消',
+    staging: '暫存',
+    release: '發布',
+    title: '標題',
+    noticeRange: '通知範圍',
+    createBy: '創建人',
+    createTime: '創建日期',
+    textContent: '文本內容',
+    uploadFile: '上傳附件',
+    createRules: {
+      title: '請輸入標題',
+      createTime: '請輸入創建時間',
+      createBy: '請輸入創建人',
+      rangeIds: '請選擇通知範圍',
+      noticeType: '請選擇類型'
+    },
+    sureStaging: '確定要暫存嗎？ ',
+    sureRelease: '確定要發布嗎？ ',
+    manageColumns: {
+      num: '序號',
+      title: '標題',
+      noticeType: '類型',
+      createBy: '創建人',
+      createTime: '創建時間',
+      publishTime: '發佈時間',
+      action: '操作'
+    },
+
+    checkContent: '查看內容',
+    goBack: '返回',
+    titleName: '標題名稱',
+    file: '附件',
+    publishTime: '發佈時間',
+
+    pleaseEnter: '請輸入',
+    pleaseChoose: '請選擇'
+  }
+};

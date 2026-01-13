@@ -1,0 +1,52 @@
+<!--
+ * @Author: yuan wenyu
+ * @Version: 1.0.1
+ * @Date: 2023-03-30 10:06:04
+ * @LastEditors: Do not edit
+ * @LastEditTime: 2024-05-17 09:00:09
+ * @Description: 
+-->
+<!--
+ * @Description: 请输入....
+ * @Author: huhaiou
+ * @Date: 2022-02-25 15:16:38
+ * @LastEditTime: 2023-04-03 16:44:20
+ * @LastEditors: yuan wenyu
+-->
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <title>加载中...</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <meta
+      content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
+      name="viewport"
+    />
+    <!--
+        @TODO wpg-framework.js hkisc 需要 jquery-1.12.4.min.js  后期修改去掉JQ
+      -->
+    <script type="text/javascript" src="./js/userWaterPlan/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="./js/userWaterPlan/web-animations.min.js"></script>
+    <script type="text/javascript" src="./js/userWaterPlan/preview.js"></script>
+    <script type="text/javascript" src="./js/userWaterPlan/wpg-framework.js"></script>
+    <script type="text/javaScript" src="<%= BASE_URL %>static/hkisc/jsencrypt.min.js"></script>
+    <script
+      type="text/javaScript"
+      src="<%= BASE_URL %>static/hkisc/jsWebControl-1.0.0.min.js"
+    ></script>
+    <script src="./js/hKH5/playctrl.js"></script>
+    <script type="text/javaScript" src="<%= BASE_URL %>static/hkisc/playback.js"></script>
+    <script type="text/javaScript" src="<%= BASE_URL %>static/hkisc/h5player.min.js"></script>
+
+    <script>
+      window.publicPath = '<%= BASE_URL %>';
+    </script>
+    <script type="text/javascript" src="./js/imouPlayer/imouplayer.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script src="<%= BASE_URL %>tinymce/tinymce.min.js"></script>
+  </body>
+</html>

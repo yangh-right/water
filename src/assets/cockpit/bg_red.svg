@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="16px" viewBox="0 0 72 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>bg_red</title>
+    <defs>
+        <linearGradient x1="100%" y1="50%" x2="-1.25311351%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#F64357" stop-opacity="0.199628497" offset="0%"></stop>
+            <stop stop-color="#F64357" stop-opacity="0" offset="50.9287587%"></stop>
+            <stop stop-color="#F64357" stop-opacity="0.200256774" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="bg_red" transform="translate(0.000000, 0.001079)">
+            <rect id="矩形" fill="url(#linearGradient-1)" x="3" y="0" width="66" height="16"></rect>
+            <path d="M71.9994607,0.000539260067 L71.9994607,16.0005393 L70.9493634,16.0001048 C70.7504188,15.0209257 69.9791643,14.2496433 69,14.0506578 L69,2.95042068 C70.1408515,2.71857717 70.9994607,1.70982769 70.9994607,0.50053926 C70.9994607,0.329115812 70.9822073,0.161722125 70.9493422,1.21417777e-13 L71.9994607,0.000539260067 Z" id="形状结合" fill="#F64357" transform="translate(70.499730, 8.000270) scale(-1, 1) translate(-70.499730, -8.000270) "></path>
+            <path d="M2.99946074,0.000539260067 L2.99946074,16.0005393 L1.94936345,16.0001048 C1.75041879,15.0209257 0.979164277,14.2496433 -1.20322973e-13,14.0506578 L-1.20641183e-13,2.95042068 C1.14085148,2.71857717 1.99946074,1.70982769 1.99946074,0.50053926 C1.99946074,0.329115812 1.98220728,0.161722125 1.94934216,1.23194134e-13 L2.99946074,0.000539260067 Z" id="形状结合" fill="#F64357"></path>
+        </g>
+    </g>
+</svg>
