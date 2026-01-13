@@ -8,13 +8,25 @@
 <template>
   <div class="content">
     <w-spin :spinning="loading" class="spin">
-      <iframe v-if="!!svgUrl" :src="svgUrl" title="组态图" ref="contentFrame" id="contentFrame" name="contentFrame"
-        class="contentFrame"></iframe>
+      <iframe
+        v-if="!!svgUrl"
+        :src="svgUrl"
+        title="组态图"
+        ref="contentFrame"
+        id="contentFrame"
+        name="contentFrame"
+        class="contentFrame"
+      ></iframe>
       <w-empty v-else class="empty" description="暂未配置"></w-empty>
     </w-spin>
     <!-- 放大图 -->
-    <w-modal :visible="isFullScreen" :footeeleteDevicer="null" :footer="null" width="1080px"
-      @cancel="isFullScreen = false">
+    <w-modal
+      :visible="isFullScreen"
+      :footeeleteDevicer="null"
+      :footer="null"
+      width="1080px"
+      @cancel="isFullScreen = false"
+    >
       <iframe :src="svgUrl" width="1000" height="600" title="组态图" class="svgFrame"></iframe>
     </w-modal>
   </div>
@@ -52,7 +64,7 @@ export default {
       immediate: true
     }
   },
-  created() { },
+  created() {},
   methods: {
     async getUrlMap() {
       this.loading = true;
@@ -65,12 +77,7 @@ export default {
         const token = accessToken.get();
         resultData.forEach(item => {
           if (item.templateName === this.title) {
-            const isLocal = window.location.hostname === 'localhost';
-            if (isLocal) {
-              this.svgUrl = 'https://zhjs.ykqjsw.com/' + item.previewUrl + `&token=${token}&parent=${window.origin}`;
-            } else {
-              this.svgUrl = item.previewUrl + `&token=${token}&parent=${window.origin}`;
-            }
+            this.svgUrl = item.previewUrl + `&token=${token}&parent=${window.origin}`;
           }
         });
       }
@@ -89,13 +96,11 @@ export default {
   width: 100%;
   height: 100%;
   border-radius: 4px;
-
   .full-screen {
     position: absolute;
     right: 16px;
     top: 16px;
   }
-
   &-title {
     height: 40px;
     padding: 8px 12px;
@@ -104,27 +109,22 @@ export default {
     color: var(--supply-color-main);
     letter-spacing: 0;
   }
-
   .select {
     position: absolute;
     right: 10px;
     top: 10px;
     width: 120px;
   }
-
   .spin {
     height: 100%;
-
     /deep/.wpg-spin-container {
       height: 100%;
     }
-
     .contentFrame {
       width: 100%;
       height: 100%;
       padding: 6px;
     }
-
     .empty {
       height: 100%;
       display: flex;

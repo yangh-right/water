@@ -111,22 +111,6 @@ export default {
             nameTextStyle: {
               align: 'right'
             }
-          },
-          {
-            type: 'value',
-            name: '',
-            min: 0,
-            max: 1,
-            position: 'right',
-            nameTextStyle: {
-              align: 'left'
-            },
-            axisLine: {
-              show: true
-            },
-            splitLine: {
-              show: false
-            }
           }
         ]
       }
@@ -190,7 +174,7 @@ export default {
             ])
           }
         }];
-
+        
         tmpOption.series = series;
         tmpOption.xAxis[0].data = xData;
         tmpOption.xAxis[0].axisLabel.rotate = 0;
@@ -199,23 +183,6 @@ export default {
           name: 'm³',
           nameTextStyle: {
             align: 'right'
-          }
-        };
-        // 右侧Y轴保持0-1范围
-        tmpOption.yAxis[1] = {
-          type: 'value',
-          name: '',
-          min: 0,
-          max: 1,
-          position: 'right',
-          nameTextStyle: {
-            align: 'left'
-          },
-          axisLine: {
-            show: true
-          },
-          splitLine: {
-            show: false
           }
         };
         tmpOption.color = ['#BD5D00', 'FF9A00'];
@@ -259,33 +226,15 @@ export default {
         tmpOption.series = series;
         tmpOption.xAxis[0].data = xData;
         tmpOption.xAxis[0].axisLabel.rotate = 0;
-        // 保留左侧Y轴配置
-        if (resultData && resultData.length > 0) {
-          tmpOption.yAxis[0] = {
+        tmpOption.yAxis = resultData?.map(item => {
+          return {
             type: 'value',
-            name: resultData[0].pointUnit || '',
+            name: item.pointUnit || '',
             nameTextStyle: {
               align: 'right'
             }
-          };
-        }
-        // 右侧Y轴保持0-1范围
-        tmpOption.yAxis[1] = {
-          type: 'value',
-          name: '',
-          min: 0,
-          max: 1,
-          position: 'right',
-          nameTextStyle: {
-            align: 'left'
-          },
-          axisLine: {
-            show: true
-          },
-          splitLine: {
-            show: false
           }
-        };
+        });
       }
       this.thirdOption = tmpOption;
     },
@@ -318,36 +267,18 @@ export default {
             }
           }
         });
-
+        
         tmpOption.series = series;
         tmpOption.xAxis[0].data = xData;
-        // 保留左侧Y轴配置
-        if (resultData && resultData.length > 0) {
-          tmpOption.yAxis[0] = {
+        tmpOption.yAxis = resultData?.map(item => {
+          return {
             type: 'value',
-            name: resultData[0].pointUnit || '',
+            name: item.pointUnit || '',
             nameTextStyle: {
               align: 'right'
             }
-          };
-        }
-        // 右侧Y轴保持0-1范围
-        tmpOption.yAxis[1] = {
-          type: 'value',
-          name: '',
-          min: 0,
-          max: 1,
-          position: 'right',
-          nameTextStyle: {
-            align: 'left'
-          },
-          axisLine: {
-            show: true
-          },
-          splitLine: {
-            show: false
           }
-        };
+        });
       }
       return tmpOption;
     },
@@ -356,27 +287,22 @@ export default {
 </script>
 <style lang="less" scoped>
 @import '@/views/analysis/style/design.less';
-
 .card {
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
   display: flex;
   justify-content: space-between;
-
   .card-module {
     width: 100%;
-
     &.card-module-left {
       height: 100%;
     }
   }
-
   &__item {
     height: 33.3%;
   }
 }
-
 /deep/ .chart-wrapper {
   height: calc(100% - 2px);
 }
@@ -387,7 +313,6 @@ export default {
   flex-wrap: wrap;
   gap: 16px;
   padding: 16px 0px;
-
   .metric-card {
     flex: 1;
     min-width: 120px;
@@ -407,7 +332,6 @@ export default {
       justify-content: center;
       align-items: center;
       margin: 0 auto;
-
       .val {
         color: var(--supply-color-main);
         font-size: 24px;

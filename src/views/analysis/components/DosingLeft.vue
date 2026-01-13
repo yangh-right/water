@@ -99,22 +99,6 @@ export default {
             nameTextStyle: {
               align: 'right'
             }
-          },
-          {
-            type: 'value',
-            name: '',
-            min: 0,
-            max: 1,
-            position: 'right',
-            nameTextStyle: {
-              align: 'left'
-            },
-            axisLine: {
-              show: true
-            },
-            splitLine: {
-              show: false
-            }
           }
         ]
       }
@@ -141,7 +125,7 @@ export default {
     }
   },
 
-  mounted() { },
+  mounted() {},
 
   methods: {
     async getLeftOneData() {
@@ -187,36 +171,18 @@ export default {
             }
           }
         });
-
+        
         tmpOption.series = series;
         tmpOption.xAxis[0].data = xData;
-        // 保留左侧Y轴配置
-        if (resultData && resultData.length > 0) {
-          tmpOption.yAxis[0] = {
+        tmpOption.yAxis = resultData?.map(item => {
+          return {
             type: 'value',
-            name: resultData[0].pointUnit || '',
+            name: item.pointUnit || '',
             nameTextStyle: {
               align: 'right'
             }
-          };
-        }
-        // 右侧Y轴保持0-1范围
-        tmpOption.yAxis[1] = {
-          type: 'value',
-          name: '',
-          min: 0,
-          max: 1,
-          position: 'right',
-          nameTextStyle: {
-            align: 'left'
-          },
-          axisLine: {
-            show: true
-          },
-          splitLine: {
-            show: false
           }
-        };
+        });
       }
       return tmpOption;
     },
@@ -233,28 +199,28 @@ export default {
       const { resultData, status } = (await getModelHistoryData(params)) || {};
       if (status === 'complete') {
         return resultData?.map(item => {
-          let xData = item.timeDataList?.map(data => `${data.dateTimeStr}:00`);
-          let yData = item.timeDataList?.map(data => data.historyPointValue);
-          let option = genOption({
-            xData,
-            yData,
-            yAxisName: item.pointUnit,
-            xAxisRotate: 40
-          });
-          let isNoData = yData?.some(data => data != null);
-          if (!isNoData) {
-            option.yAxis[0].min = 0;
-            option.yAxis[0].max = 5;
-          } else {
-            delete option.yAxis[0].min;
-            delete option.yAxis[0].max;
-          }
-          return {
-            value: item.pointName,
-            label: item.pointMemo,
-            option
-          };
-        }) || [];
+              let xData = item.timeDataList?.map(data => `${data.dateTimeStr}:00`);
+              let yData = item.timeDataList?.map(data => data.historyPointValue);
+              let option = genOption({
+                xData,
+                yData,
+                yAxisName: item.pointUnit,
+                xAxisRotate: 40
+              });
+              let isNoData = yData?.some(data => data != null);
+              if (!isNoData) {
+                option.yAxis[0].min = 0;
+                option.yAxis[0].max = 5;
+              } else {
+                delete option.yAxis[0].min;
+                delete option.yAxis[0].max;
+              }
+              return {
+                value: item.pointName,
+                label: item.pointMemo,
+                option
+              };
+            }) || [];
       }
       return [];
     }
@@ -264,27 +230,22 @@ export default {
 
 <style lang="less" scoped>
 @import '@/views/analysis/style/design.less';
-
 .card {
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
   display: flex;
   justify-content: space-between;
-
   .card-module {
     width: 100%;
-
     &.card-module-left {
       height: 100%;
     }
   }
-
   &__item {
     height: 33.3%;
   }
 }
-
 /deep/ .chart-wrapper {
   height: calc(100% - 2px);
 }
