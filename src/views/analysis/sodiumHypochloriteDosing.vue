@@ -12,33 +12,20 @@
     </div>
     <div class="page__center">
       <div class="center__top">
-        <w-form-header
-          :fields="fields"
-          class="supply-w-full"
-          style="margin-bottom:10px"
-        >
+        <w-form-header :fields="fields" class="supply-w-full" style="margin-bottom:10px">
           <template #waterPlantId>
-            <FactorySelect
-              dropdownClassName="dark"
-              v-model.trim="waterPlantId"
-              autoSelect
-            ></FactorySelect>
+            <FactorySelect dropdownClassName="dark" v-model.trim="waterPlantId" autoSelect></FactorySelect>
           </template>
           <template #footer>
           </template>
         </w-form-header>
         <div class="iframe-view">
-          <technology-flow title="智能曝气" :waterPlantId="waterPlantId"></technology-flow>
+          <technology-flow title="次氯酸钠加药" :waterPlantId="waterPlantId"></technology-flow>
         </div>
-      </div>
-      <div class="page-item">
-        <chart-point-bottom :waterPlantId="waterPlantId"></chart-point-bottom>
       </div>
     </div>
     <div class="page__right">
-      <chart-point-right
-        :waterPlantId="waterPlantId"
-      ></chart-point-right>
+      <chart-point-right :waterPlantId="waterPlantId"></chart-point-right>
     </div>
   </div>
 </template>
@@ -48,7 +35,7 @@ import { switchRunningSchemes, programmeList } from '@/api/optimization';
 import TechnologyFlow from './components/TechnologyFlow.vue';
 import ChartPointLeft from './components/ChartPointLeft.vue';
 import ChartPointRight from './components/ChartPointRight.vue';
-import ChartPointBottom from './components/ChartPointBottom.vue';
+// import ChartPointBottom from './components/ChartPointBottom.vue';
 export default {
   name: 'preciseDosing',
   components: {
@@ -56,7 +43,7 @@ export default {
     TechnologyFlow,
     ChartPointRight,
     ChartPointLeft,
-    ChartPointBottom
+    // ChartPointBottom
   },
   data() {
     return {
@@ -93,7 +80,7 @@ export default {
       }
     }
   },
-  created() {},
+  created() { },
   methods: {
     async getSchemeList() {
       let params = {
@@ -114,7 +101,7 @@ export default {
         }
       }
     },
-    programmeChange() {},
+    programmeChange() { },
     /* 全屏切换 */
     handleClick() {
       this.templateId = this.schemeId;
@@ -148,7 +135,7 @@ export default {
             }
           }
         },
-        onCancel: () => {}
+        onCancel: () => { }
       });
     },
     handleCancel() {
@@ -168,5 +155,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import '@/views/debugTool/style/index.less';
+@import '@/views/analysis/style/index.less';
 </style>

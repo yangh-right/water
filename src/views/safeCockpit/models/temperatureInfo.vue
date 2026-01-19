@@ -36,22 +36,9 @@
 
 <script>
 import { themeMixin } from '@/core/mixins.ts';
-import { basicInformationOfTheProject } from '@/api/cockpit';
+import { getTemperatureSituation } from '@/api/cockpit';
 const colorList = ['#FFBB02', '#0375FF', '#00C07C'];
-const pointsArr = [
-  {
-    name: '项目数量',
-    value: 0
-  },
-  {
-    name: '站点数量',
-    value: 0
-  },
-  {
-    name: '设备数量',
-    value: 0
-  }
-];
+const pointsArr = [];
 export default {
   name: 'temperatureInfo',
   mixins: [themeMixin],
@@ -140,15 +127,18 @@ export default {
   },
   methods: {
     async initData() {
-      let res = await basicInformationOfTheProject(this.waterPlantId);
+      let res = await getTemperatureSituation(this.waterPlantId);
       let { status, resultData } = res;
       if (status === 'complete') {
-        this.pointsArr[0].value = resultData?.projectNum || 0;
-        this.pointsArr[1].value = resultData?.stationNum || 0;
-        this.pointsArr[2].value = resultData?.deviceNum || 0;
-        this.pointsArr = [...this.pointsArr];
+        this.pointsArr = resultData.detailList.map(data => {
+          return {
+            name: data.deviceName,
+            value: data.num
+          }
+        });
         this.option.series[0].data = this.pointsArr;
-        this.option.title.text = res.resultData?.totalPointNum || 0;
+        this.option.title.text = res.resultData?.totalNum || 0;
+        this.pointCount = res.resultData?.totalNum || 0;
       }
     },
     myChartClick(params) {

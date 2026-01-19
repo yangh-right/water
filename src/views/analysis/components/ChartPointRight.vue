@@ -24,13 +24,8 @@
             <div class="metrics-container">
               <div class="metric-card">
                 <div class="progress-wrapper">
-                  <w-progress
-                    type="circle"
-                    :percent="doAnalysisData.northHitRangeRatio"
-                    :width="120"
-                    :stroke-color="progressColor"
-                    :stroke-width="8"
-                  >
+                  <w-progress type="circle" :percent="doAnalysisData.northHitRangeRatio" :width="120"
+                    :stroke-color="progressColor" :stroke-width="8">
                     <template #format="percent">
                       <div class="per-val">
                         <div class="val">{{ percent }}<span class="unit">%</span></div>
@@ -46,13 +41,8 @@
 
               <div class="metric-card">
                 <div class="progress-wrapper">
-                  <a-progress
-                    type="circle"
-                    :percent="doAnalysisData.northHitRangeRatio"
-                    :width="120"
-                    :stroke-color="progressColor"
-                    :stroke-width="8"
-                  >
+                  <a-progress type="circle" :percent="doAnalysisData.northHitRangeRatio" :width="120"
+                    :stroke-color="progressColor" :stroke-width="8">
                     <template #format="percent">
                       <div class="per-val">
                         <div class="val">{{ percent }}<span class="unit">%</span></div>
@@ -102,8 +92,8 @@ export default {
       doAnalysisData: {
         northDoSetValue: '',
         southDoSetValue: '',
-        northHitRangeRatio: '',
-        southHitRangeRatio: ''
+        northHitRangeRatio: 0,
+        southHitRangeRatio: 0
       },
 
       progressColor: {
@@ -203,34 +193,86 @@ export default {
       const { resultData, status } = (await getPrecisionAerationEnergyData(params)) || {};
       let tmpOption = cloneDeep(this.option);
       if (status === 'complete') {
-        let xData = xData = resultData?.[0]?.timeDataList?.map(data => `${data.dateTimeStr}`) || [];
-        let series = resultData?.map(item => {
-          let yData = item.timeDataList?.map(data => data.historyPointValue);
-          return {
-            name: item.pointMemo,
+        let xData = resultData?.[0]?.timeDataList?.map(data => `${data.dateTimeStr}`) || [];
+        
+        // 找出风机能耗和千吨水风机能耗的数据
+        let fanEnergyData = null;
+        let perThousandData = null;
+        resultData?.forEach(item => {
+          if (item.pointMemo && item.pointMemo.includes('千吨')) {
+            perThousandData = item;
+          } else if (item.pointMemo && item.pointMemo.includes('风机')) {
+            fanEnergyData = item;
+          }
+        });
+
+        let series = [];
+        // 风机能耗使用左侧 Y 轴 (yAxisIndex: 0)
+        if (fanEnergyData) {
+          let yData = fanEnergyData.timeDataList?.map(data => data.historyPointValue);
+          series.push({
+            name: fanEnergyData.pointMemo,
             data: yData || [],
             type: 'line',
             smooth: true,
+            yAxisIndex: 0,
             areaStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-                { offset: 0, color: colorRgb('#BD5DF0', 0.5) },
-                { offset: 1, color: colorRgb('#BD5DF0', 0.1) }
+                { offset: 0, color: colorRgb('#BD5DFF', 0.5) },
+                { offset: 1, color: colorRgb('#BD5DFF', 0.1) }
               ])
             }
-          }
-        });
+          });
+        }
+        // 千吨水风机能耗使用右侧 Y 轴 (yAxisIndex: 1)
+        if (perThousandData) {
+          let yData = perThousandData.timeDataList?.map(data => data.historyPointValue);
+          series.push({
+            name: perThousandData.pointMemo,
+            data: yData || [],
+            type: 'line',
+            smooth: true,
+            yAxisIndex: 1,
+            areaStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: colorRgb('#FF9A3B', 0.5) },
+                { offset: 1, color: colorRgb('#FF9A3B', 0.1) }
+              ])
+            }
+          });
+        }
+
         tmpOption.series = series;
         tmpOption.xAxis[0].data = xData;
         tmpOption.xAxis[0].axisLabel.rotate = 0;
-        tmpOption.yAxis = resultData?.map(item => {
-          return {
+        tmpOption.color = ['#BD5DFF', '#FF9A3B'];
+        
+        // 左侧Y轴配置 - 风机能耗 (动态范围)
+        tmpOption.yAxis = [
+          {
             type: 'value',
-            name: item.pointUnit || '',
+            name: fanEnergyData?.pointUnit || 'kWh',
             nameTextStyle: {
               align: 'right'
             }
+          },
+          // 右侧Y轴配置 - 千吨水风机能耗 (动态范围)
+          {
+            type: 'value',
+            name: perThousandData?.pointUnit || 'kWh/kt',
+            show: true,
+            position: 'right',
+            nameTextStyle: {
+              align: 'left'
+            },
+            axisLine: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            }
           }
-        });
+        ];
       }
       this.thirdOption = tmpOption;
     },
@@ -246,7 +288,11 @@ export default {
       };
       let { resultData, status } = await getDoReasonableRangeRatio(params);
       if (status === 'complete') {
-        this.doAnalysisData = resultData;
+        this.doAnalysisData = {
+          ...resultData,
+          northHitRangeRatio: Number(resultData.northHitRangeRatio) || 0,
+          southHitRangeRatio: Number(resultData.southHitRangeRatio) || 0
+        };
       }
     },
 
@@ -278,7 +324,7 @@ export default {
             }
           }
         });
-        
+
         tmpOption.series = series;
         tmpOption.xAxis[0].data = xData;
         tmpOption.yAxis = resultData?.map(item => {
@@ -298,22 +344,27 @@ export default {
 </script>
 <style lang="less" scoped>
 @import '@/views/analysis/style/design.less';
+
 .card {
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
   display: flex;
   justify-content: space-between;
+
   .card-module {
     width: 100%;
+
     &.card-module-left {
       height: 100%;
     }
   }
+
   &__item {
     height: 33.3%;
   }
 }
+
 /deep/ .chart-wrapper {
   height: calc(100% - 2px);
 }
@@ -324,6 +375,7 @@ export default {
   flex-wrap: wrap;
   gap: 16px;
   padding: 16px 0px;
+
   .metric-card {
     flex: 1;
     min-width: 120px;
@@ -343,6 +395,7 @@ export default {
       justify-content: center;
       align-items: center;
       margin: 0 auto;
+
       .val {
         color: var(--supply-color-main);
         font-size: 24px;

@@ -46,7 +46,7 @@ const EQUIPMENT_TYPES = [
   { name: '机械类', key: 'mechanicalRate' }
 ];
 import { themeMixin } from '@/core/mixins.ts';
-import { equipmentIntegrityRate } from '@/api/cockpit.js';
+import { deviceIntegrityRate } from '@/api/cockpit.js';
 export default {
   name: 'equipmentRate',
   mixins: [themeMixin],
@@ -75,16 +75,16 @@ export default {
         }
       },
       loading: false,
-      equipmentData: null
+      deviceData: []
     };
   },
   computed: {
     dataList() {
-      if (!this.equipmentData) return [];
-      return EQUIPMENT_TYPES.map((type, index) => ({
-        pointName: type.name,
-        pointMemo: type.name,
-        percent: this.equipmentData[type.key] || 0,
+      if (!this.deviceData) return [];
+      return this.deviceData.slice(0, 3).map((data, index) => ({
+        pointName: data.type,
+        pointMemo: data.typeName,
+        percent: data.rate || 0,
         pointUnit: '%'
       }));
     }
@@ -106,12 +106,12 @@ export default {
 
       this.loading = true;
       try {
-        const { status, resultData } = await equipmentIntegrityRate({
+        const { status, resultData } = await deviceIntegrityRate({
           waterPlantId: this.waterPlantId
         });
 
         if (status === 'complete') {
-          this.equipmentData = resultData;
+          this.deviceData = resultData;
         }
       } catch (error) {
         console.error('设备概览数据获取失败:', error);

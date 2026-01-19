@@ -111,6 +111,23 @@ export default {
             nameTextStyle: {
               align: 'right'
             }
+          },
+          {
+            type: 'value',
+            name: '',
+            min: 0,
+            max: 1,
+            show: false,
+            position: 'right',
+            nameTextStyle: {
+              align: 'left'
+            },
+            axisLine: {
+              show: false
+            },
+            splitLine: {
+              show: false
+            }
           }
         ]
       }
@@ -174,7 +191,7 @@ export default {
             ])
           }
         }];
-        
+
         tmpOption.series = series;
         tmpOption.xAxis[0].data = xData;
         tmpOption.xAxis[0].axisLabel.rotate = 0;
@@ -183,6 +200,24 @@ export default {
           name: 'm³',
           nameTextStyle: {
             align: 'right'
+          }
+        };
+        // 右侧Y轴保持0-1范围
+        tmpOption.yAxis[1] = {
+          type: 'value',
+          name: '',
+          min: 0,
+          max: 1,
+          show: false,
+          position: 'right',
+          nameTextStyle: {
+            align: 'left'
+          },
+          axisLine: {
+            show: false
+          },
+          splitLine: {
+            show: false
           }
         };
         tmpOption.color = ['#BD5D00', 'FF9A00'];
@@ -226,15 +261,34 @@ export default {
         tmpOption.series = series;
         tmpOption.xAxis[0].data = xData;
         tmpOption.xAxis[0].axisLabel.rotate = 0;
-        tmpOption.yAxis = resultData?.map(item => {
-          return {
+        // 保留左侧Y轴配置
+        if (resultData && resultData.length > 0) {
+          tmpOption.yAxis[0] = {
             type: 'value',
-            name: item.pointUnit || '',
+            name: resultData[0].pointUnit || '',
             nameTextStyle: {
               align: 'right'
             }
+          };
+        }
+        // 右侧Y轴保持0-1范围
+        tmpOption.yAxis[1] = {
+          type: 'value',
+          name: '',
+          min: 0,
+          max: 1,
+          show: false,
+          position: 'right',
+          nameTextStyle: {
+            align: 'left'
+          },
+          axisLine: {
+            show: false
+          },
+          splitLine: {
+            show: false
           }
-        });
+        };
       }
       this.thirdOption = tmpOption;
     },
@@ -251,34 +305,84 @@ export default {
       const { resultData, status } = (await getModelHistoryData(params)) || {};
       let tmpOption = cloneDeep(this.option);
       if (status === 'complete') {
-        let xData = xData = resultData?.[0]?.timeDataList?.map(data => `${data.dateTimeStr}:00`) || [];
-        let series = resultData?.map(item => {
-          let yData = item.timeDataList?.map(data => data.historyPointValue);
-          return {
-            name: item.pointMemo,
+        let xData = resultData?.[0]?.timeDataList?.map(data => `${data.dateTimeStr}:00`) || [];
+        
+        // 找出 TN 和 NH3-N 的数据
+        let tnData = null;
+        let nh3nData = null;
+        resultData?.forEach(item => {
+          if (item.pointMemo && item.pointMemo.includes('TN')) {
+            tnData = item;
+          } else if (item.pointMemo && (item.pointMemo.includes('NH'))) {
+            nh3nData = item;
+          }
+        });
+
+        let series = [];
+        // TN 使用左侧 Y 轴 (yAxisIndex: 0)
+        if (tnData) {
+          let yData = tnData.timeDataList?.map(data => data.historyPointValue);
+          series.push({
+            name: tnData.pointMemo,
             data: yData || [],
             type: 'line',
             smooth: true,
+            yAxisIndex: 0,
             areaStyle: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
                 { offset: 0, color: colorRgb('#BD5DFF', 0.5) },
                 { offset: 1, color: colorRgb('#BD5DFF', 0.1) }
               ])
             }
-          }
-        });
-        
+          });
+        }
+        // NH3-N 使用右侧 Y 轴 (yAxisIndex: 1)
+        if (nh3nData) {
+          let yData = nh3nData.timeDataList?.map(data => data.historyPointValue);
+          series.push({
+            name: nh3nData.pointMemo,
+            data: yData || [],
+            type: 'line',
+            smooth: true,
+            yAxisIndex: 1,
+            areaStyle: {
+              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                { offset: 0, color: colorRgb('#FF9A3B', 0.5) },
+                { offset: 1, color: colorRgb('#FF9A3B', 0.1) }
+              ])
+            }
+          });
+        }
+
         tmpOption.series = series;
         tmpOption.xAxis[0].data = xData;
-        tmpOption.yAxis = resultData?.map(item => {
-          return {
-            type: 'value',
-            name: item.pointUnit || '',
-            nameTextStyle: {
-              align: 'right'
-            }
+        tmpOption.color = ['#BD5DFF', '#FF9A3B'];
+        
+        // 左侧Y轴配置 - TN
+        tmpOption.yAxis[0] = {
+          type: 'value',
+          name: tnData?.pointUnit || 'mg/L',
+          nameTextStyle: {
+            align: 'right'
           }
-        });
+        };
+        
+        // 右侧Y轴配置 - NH3-N (动态范围)
+        tmpOption.yAxis[1] = {
+          type: 'value',
+          name: nh3nData?.pointUnit || 'mg/L',
+          show: true,
+          position: 'right',
+          nameTextStyle: {
+            align: 'left'
+          },
+          axisLine: {
+            show: false
+          },
+          splitLine: {
+            show: false
+          }
+        };
       }
       return tmpOption;
     },
@@ -287,22 +391,27 @@ export default {
 </script>
 <style lang="less" scoped>
 @import '@/views/analysis/style/design.less';
+
 .card {
   overflow-y: auto;
   overflow-x: hidden;
   height: 100%;
   display: flex;
   justify-content: space-between;
+
   .card-module {
     width: 100%;
+
     &.card-module-left {
       height: 100%;
     }
   }
+
   &__item {
     height: 33.3%;
   }
 }
+
 /deep/ .chart-wrapper {
   height: calc(100% - 2px);
 }
@@ -313,6 +422,7 @@ export default {
   flex-wrap: wrap;
   gap: 16px;
   padding: 16px 0px;
+
   .metric-card {
     flex: 1;
     min-width: 120px;
@@ -332,6 +442,7 @@ export default {
       justify-content: center;
       align-items: center;
       margin: 0 auto;
+
       .val {
         color: var(--supply-color-main);
         font-size: 24px;

@@ -29,8 +29,12 @@ export default {
         treeType: 'pump', // 选择设备device/泵房pump
         plainOptions: [
           {
+            label: '脱水排泥量',
+            value: 'dewatering_sludge'
+          },
+          {
             label: '污泥外运量',
-            value: 'sludge'
+            value: 'external_sludge'
           }
         ], // 可勾选监测量
         intervalShow: false, // 是否显示间隔

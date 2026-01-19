@@ -46,29 +46,29 @@ const ICONS = [
 
 const DATA_LIST_TEMPLATE = [
   {
-    pointName: '本月累计排泥量',
-    pointMemo: '本月累计排泥量',
+    pointName: '本月污泥排泥量',
+    pointMemo: '本月污泥排泥量',
     pointValue: 0,
     pointUnit: '吨',
     icon: ICONS[0]
   },
   {
-    pointName: '本月日均排泥量',
-    pointMemo: '本月日均排泥量',
+    pointName: '上月污泥排泥量',
+    pointMemo: '上月污泥排泥量',
     pointValue: 0,
     pointUnit: '吨',
     icon: ICONS[1]
   },
   {
-    pointName: '上月总计排泥量',
-    pointMemo: '上月总计排泥量',
+    pointName: '本月污泥外运量',
+    pointMemo: '本月污泥外运量',
     pointValue: 0,
     pointUnit: '吨',
     icon: ICONS[2]
   },
   {
-    pointName: '上月日均排泥量',
-    pointMemo: '上月日均排泥量',
+    pointName: '上月污泥外运量',
+    pointMemo: '上月污泥外运量',
     pointValue: 0,
     pointUnit: '吨',
     icon: ICONS[3]
@@ -144,8 +144,8 @@ export default {
             const valueMap = {
               0: resultData.monthNum,
               1: resultData.lastMonthNum,
-              2: resultData.monthAvgNum,
-              3: resultData.lastMonthAvgNum
+              2: resultData.monthExternalSludgeNum,
+              3: resultData.lastMonthExternalSludgeNum
             };
             return {
               ...item,

@@ -4,16 +4,28 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-  /deep/ .wpg-form {
-    .wpg-form-item-label > label {
-    }
-  }
   /deep/.form-header {
     height: 61px !important;
   }
   /deep/.wpg-form-header {
     background: transparent;
-    padding: 13px 16px 9px !important;
+    padding: 0 !important;
+    margin-top: 5px;
+    justify-content: flex-start !important;
+    
+    .wpg-row {
+      justify-content: flex-start !important;
+    }
+    
+    .wpg-form-item {
+      margin-left: 0 !important;
+    }
+
+    .wpg-col {
+      width: auto !important;
+      margin-left: 5px;
+      flex: none !important;
+    }
   }
   &__center {
     height: 100%;

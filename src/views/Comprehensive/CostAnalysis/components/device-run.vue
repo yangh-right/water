@@ -12,15 +12,8 @@
       <div class="content-title">{{ title }}</div>
       <div class="form">
         <div class="form-item">
-          <w-month-picker
-            v-model="dateOption"
-            style="width: 100px"
-            placeholder="选择月份"
-            size="small"
-            :allowClear="false"
-            :disabledDate="disabledDate"
-            @change="getPointList"
-          />
+          <w-month-picker v-model="dateOption" style="width: 100px" placeholder="选择月份" size="small" :allowClear="false"
+            :disabledDate="disabledDate" @change="getPointList" />
         </div>
       </div>
     </div>
@@ -86,7 +79,7 @@ export default {
         grid: [
           {
             left: '16px',
-            right: '42px',
+            right: '100px',
             top: '10%',
             bottom: '5px',
             containLabel: true
@@ -130,6 +123,14 @@ export default {
               verticalAlign: 'top',
               lineHeight: 26,
               color: '#00000073'
+            },
+            axisLabel: {
+              formatter: function (value) {
+                if (value >= 10000) {
+                  return (value / 10000) + '万';
+                }
+                return value;
+              }
             }
           }
         ],
@@ -199,7 +200,7 @@ export default {
       immediate: true
     }
   },
-  created() {},
+  created() { },
   methods: {
     async getPointList() {
       this.loading = true;
@@ -247,6 +248,7 @@ export default {
   width: 100%;
   background: var(--supply-color-bg-card-DEFAULT);
   border-radius: 4px;
+
   &-header {
     width: 100%;
     padding: 15px 12px;
@@ -255,17 +257,20 @@ export default {
     align-items: center;
     height: 40px;
   }
+
   &-title {
     font-weight: 600;
     font-size: 16px;
     color: var(--supply-color-main);
     letter-spacing: 0;
   }
+
   .form {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
+
   .form-item {
     margin-top: 10px;
     margin-left: 8px;
@@ -273,8 +278,10 @@ export default {
     justify-content: space-between;
     align-items: center;
   }
+
   .spin {
     height: calc(60% - 20px);
+
     .device-wrap {
       padding: 0px 6px 6px;
       width: 100%;
@@ -282,9 +289,11 @@ export default {
       display: flex;
       flex-wrap: wrap;
       position: relative;
+
       .chart-wrapper {
         width: 100%;
         height: 100%;
+
         .card-inner {
           width: 100%;
           height: 100%;
@@ -299,6 +308,7 @@ export default {
             width: 100%;
             text-align: center;
           }
+
           .points-list {
             height: 68px;
             width: 100%;
@@ -317,6 +327,7 @@ export default {
               justify-content: space-between;
               align-items: center;
               margin-right: 28px;
+
               &:nth-child(2n) {
                 margin-right: 0px;
               }
@@ -336,6 +347,7 @@ export default {
                   margin-right: 6px;
                 }
               }
+
               .precent {
                 font-weight: 400;
                 font-size: 14px;
@@ -349,6 +361,7 @@ export default {
       }
     }
   }
+
   .empty {
     width: 100%;
     height: 100%;
@@ -356,6 +369,7 @@ export default {
     justify-content: center;
     align-items: center;
   }
+
   .info-box {
     flex-direction: row;
     display: flex;
@@ -371,17 +385,21 @@ export default {
       text-align: center;
       background: url('~@/assets/safeCockpit/chart_bg.png') center center no-repeat;
       background-size: 65% 65%;
+
       .label-wrap {
         position: absolute;
       }
     }
   }
+
   /deep/ .wpg-select-selection--single {
     height: 32px;
   }
+
   /deep/ .wpg-spin-container {
     height: 100%;
   }
+
   /deep/ .wpg-select {
     width: 120px !important;
   }
